@@ -81,12 +81,15 @@ public class ConsultasVehiculo extends ModeloBD {
     
     
     public boolean actualizarVehiculo(Vehiculo vehiculo){
-        String query ="UPDATE vehiculos SET fecha_salida=? WHERE placa=?";
+        String query ="UPDATE vehiculos SET fecha_salida=?, valor_pagar=? WHERE placa=?";
         
         try{
             consultaSQL=conexion.prepareStatement(query);
             consultaSQL.setString(1,vehiculo.getFechaOut());
-            consultaSQL.setString(2,vehiculo.getPlaca());
+            consultaSQL.setInt(2,vehiculo.getValorPagar());
+            consultaSQL.setString(3,vehiculo.getPlaca());
+            
+            
             int resultado=consultaSQL.executeUpdate();
             
             if(resultado>0){

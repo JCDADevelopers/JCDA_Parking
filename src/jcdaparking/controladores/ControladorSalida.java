@@ -80,8 +80,14 @@ public class ControladorSalida implements ActionListener {
             long tiempoParque=unidadTiempo.convert(diferenciaTiempo, TimeUnit.MILLISECONDS);
             vehiculo.setFechaOut(fechaOut);
             
+            long valorPagar = tiempoParque*150;
+            
+            vehiculo.setValorPagar((int)valorPagar);
+ 
             if(consultasVehiculo.actualizarVehiculo(vehiculo)){
-                JOptionPane.showMessageDialog(null, "Vehiculo retirado");
+                JOptionPane.showMessageDialog(null, "Tiempo en parquadero " +tiempoParque + " Minutos, el costo fue: " + (tiempoParque*150)+" Pesos");
+                
+                vistasalida.cajaPlaca.setText("");
             }else{
                 JOptionPane.showMessageDialog(null, "Fallo retirando vehículo");
             }

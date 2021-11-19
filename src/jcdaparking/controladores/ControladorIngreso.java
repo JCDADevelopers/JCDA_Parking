@@ -84,6 +84,12 @@ public class ControladorIngreso implements ActionListener {
                 if(consultasConductores.registrarConductor(conductor)&&consultasVehiculo.insertarVehiculo(vehiculo)){
 
                     JOptionPane.showMessageDialog(null, "Éxito ingresando vehículo");
+                    
+                   vistaingreso.cajaPlaca.setText("");
+                   vistaingreso.cajaNombre.setText("");
+                   vistaingreso.cajaCelular.setText("");    
+                   vistaingreso.cajaFijo.setText("");
+                   vistaingreso.cajaCedula.setText("");
 
                 }else{
                     JOptionPane.showMessageDialog(null, "Error ingresando vehículo");
