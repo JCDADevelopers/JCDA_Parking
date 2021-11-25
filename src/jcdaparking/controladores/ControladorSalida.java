@@ -62,42 +62,52 @@ public class ControladorSalida implements ActionListener {
             ControladorIngreso controladorIngreso = new ControladorIngreso(vistaingreso, vehiculo, conductor);
         }
         
-        if(ae.getSource()==vistasalida.botonSalir){
-            
+        if(ae.getSource()==vistasalida.botonSalir){ 
             ConsultasVehiculo consultasVehiculo = new ConsultasVehiculo();
-        ConsultasConductores consultasConductores = new ConsultasConductores();
+            String placa=vistasalida.cajaPlaca.getText();
         
-        vehiculo=consultasVehiculo.buscarVehiculo(vistasalida.cajaPlaca.getText());
-        String fechaIn=vehiculo.getFechaIn();
-        try{
-            Date in = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(fechaIn);
-            Date out = new Date();
-            SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            String fechaOut = formato.format(out);
-            
-            long diferenciaTiempo=out.getTime()-in.getTime();
-            TimeUnit unidadTiempo=TimeUnit.MINUTES;
-            long tiempoParque=unidadTiempo.convert(diferenciaTiempo, TimeUnit.MILLISECONDS);
-            vehiculo.setFechaOut(fechaOut);
-            
-            long valorPagar = tiempoParque*150;
-            
-            vehiculo.setValorPagar((int)valorPagar);
- 
-            if(consultasVehiculo.actualizarVehiculo(vehiculo)){
-                JOptionPane.showMessageDialog(null, "Tiempo en parquadero " +tiempoParque + " Minutos, el costo fue: " + (tiempoParque*150)+" Pesos");
+            if(consultasVehiculo.buscarVehiculo(placa)!=null){
                 
-                vistasalida.cajaPlaca.setText("");
-            }else{
-                JOptionPane.showMessageDialog(null, "Fallo retirando vehículo");
-            }
+                ConsultasConductores consultasConductores = new ConsultasConductores();
+
+                    vehiculo=consultasVehiculo.buscarVehiculo(vistasalida.cajaPlaca.getText());
+                    String fechaIn=vehiculo.getFechaIn();
+                    try{
+                        Date in = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(fechaIn);
+                        Date out = new Date();
+                        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                        String fechaOut = formato.format(out);
+
+                        long diferenciaTiempo=out.getTime()-in.getTime();
+                        TimeUnit unidadTiempo=TimeUnit.MINUTES;
+                        long tiempoParque=unidadTiempo.convert(diferenciaTiempo, TimeUnit.MILLISECONDS);
+                        vehiculo.setFechaOut(fechaOut);
+
+                        long valorPagar = tiempoParque*150;
+
+                        vehiculo.setValorPagar((int)valorPagar);
+
+                        if(consultasVehiculo.actualizarVehiculo(vehiculo)){
+                            JOptionPane.showMessageDialog(null, "Tiempo en parquadero " +tiempoParque + " Minutos, el costo fue: " + valorPagar +" Pesos");
+                            vistasalida.cajaPlaca.setText("");
+                        }else{
+                            JOptionPane.showMessageDialog(null, "Fallo retirando vehículo");
+                        }
+
+                       }catch(ParseException error){
+                        System.out.println("upsss..." +error);
+                        }
             
-        }catch(ParseException error){
-            System.out.println("upsss..." +error);
+               }
+            else{
+            
+                vistaingreso.setVisible(true);
+                vistasalida.setVisible(false);
+            
+            ControladorIngreso controladorIngreso = new ControladorIngreso(vistaingreso, vehiculo, conductor);
+            
+                }
         }
-           
-        }
-       
     }
 }
 
