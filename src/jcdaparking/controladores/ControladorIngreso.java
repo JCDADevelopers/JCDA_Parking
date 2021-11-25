@@ -66,7 +66,6 @@ public class ControladorIngreso implements ActionListener {
                 ConsultasVehiculo consultasVehiculo = new ConsultasVehiculo();
                 ConsultasConductores consultasConductores = new ConsultasConductores();
 
-
                 conductor.setCedula(Integer.parseInt(vistaingreso.cajaCedula.getText()));
                 conductor.setNombre(vistaingreso.cajaNombre.getText());
                 conductor.setTelefono(Integer.parseInt(vistaingreso.cajaFijo.getText()));
@@ -85,11 +84,11 @@ public class ControladorIngreso implements ActionListener {
 
                     JOptionPane.showMessageDialog(null, "Éxito ingresando vehículo");
                     
-                   vistaingreso.cajaPlaca.setText("");
-                   vistaingreso.cajaNombre.setText("");
-                   vistaingreso.cajaCelular.setText("");    
-                   vistaingreso.cajaFijo.setText("");
-                   vistaingreso.cajaCedula.setText("");
+                    vistaingreso.cajaPlaca.setText("");
+                    vistaingreso.cajaNombre.setText("");
+                    vistaingreso.cajaCelular.setText("");    
+                    vistaingreso.cajaFijo.setText("");
+                    vistaingreso.cajaCedula.setText("");
 
                 }else{
                     JOptionPane.showMessageDialog(null, "Error ingresando vehículo");
